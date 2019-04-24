@@ -29,10 +29,10 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
   const moveNames = moves.map(item => item.move.name);
 
   const areAbilitiesShowing = true;
-  const toggleAbilities = () => {};
+  const toggleAbilities = () => console.log("toggleAbilities");
 
   const areMovesShowing = true;
-  const toggleMoves = () => {};
+  const toggleMoves = () => console.log("toggleMoves");
 
   return (
     <div className="Pokemon">

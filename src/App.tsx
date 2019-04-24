@@ -1,16 +1,24 @@
-import React, { FunctionComponent } from "react";
+import React, { ChangeEvent, FunctionComponent } from "react";
 
 import Pokemon from "./Pokemon";
-import Search from "./Search";
 
 export const App: FunctionComponent = () => {
   const searchQuery = "squirtle";
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    console.log(event.target.value);
 
   return (
     <main>
       <header>
         <h1>Pokedex</h1>
-        <Search defaultValue={searchQuery} />
+        <input
+          autoFocus
+          defaultValue={searchQuery}
+          onChange={handleChange}
+          type="search"
+          placeholder="Search Pokemon by name"
+        />
       </header>
       {searchQuery && <Pokemon name={searchQuery} />}
     </main>
