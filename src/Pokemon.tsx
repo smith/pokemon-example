@@ -64,13 +64,13 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
         <button onClick={toggleAbilities}>
           {areAbilitiesShowing ? "Hide abilities" : "Show abilities"}
         </button>
-        <List items={abilityNames} />
+        {areAbilitiesShowing && <List items={abilityNames} />}
       </section>
       <section>
         <button onClick={toggleMoves}>
           {areMovesShowing ? "Hide moves" : "Show moves"}
         </button>
-        <List items={moveNames} />
+        {areMovesShowing && <List items={moveNames} />}
       </section>
     </div>
   );
