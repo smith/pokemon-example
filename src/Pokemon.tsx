@@ -38,7 +38,7 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
     <div className="Pokemon">
       <h1>{name}</h1>
       <section>
-        <img src={img} />
+        <img src={img} alt={name} />
       </section>
       <section>
         <table>
