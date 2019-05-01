@@ -39,26 +39,12 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
       <h1>{name}</h1>
       <section>
         <img src={img} alt={name} />
-      </section>
-      <section>
-        <table>
-          <thead>
-            <tr>
-              <th>Base experience</th>
-              <th>Height</th>
-              <th>Weight</th>
-              <th>Type</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>{base_experience}</td>
-              <td>{height}</td>
-              <td>{weight}</td>
-              <td>{typeNames}</td>
-            </tr>
-          </tbody>
-        </table>
+        <ul>
+          <li>Base experience: {base_experience}</li>
+          <li>Height: {height}</li>
+          <li> Weight: {weight}</li>
+          <li> Type: {typeNames}</li>
+        </ul>
       </section>
       <section>
         <button onClick={toggleAbilities}>
