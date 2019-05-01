@@ -42,19 +42,19 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
         <ul>
           <li>Base experience: {base_experience}</li>
           <li>Height: {height}</li>
-          <li> Weight: {weight}</li>
-          <li> Type: {typeNames}</li>
+          <li>Weight: {weight}</li>
+          <li>Type: {typeNames}</li>
         </ul>
       </section>
       <section>
         <button onClick={toggleAbilities}>
-          {areAbilitiesShowing ? "Hide abilities" : "Show abilities"}
+          {areAbilitiesShowing ? "Hide" : "Show"} abilities
         </button>
         {areAbilitiesShowing && <List items={abilityNames} />}
       </section>
       <section>
         <button onClick={toggleMoves}>
-          {areMovesShowing ? "Hide moves" : "Show moves"}
+          {areMovesShowing ? "Hide" : "Show"} moves
         </button>
         {areMovesShowing && <List items={moveNames} />}
       </section>
