@@ -30,6 +30,7 @@ main > header > input {
 
 .Pokemon > section {
   float: left;
+  min-width: 200px;
 }
 
 .Pokemon > section ul {
