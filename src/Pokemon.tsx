@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 
-import List from "./List";
 import NotFound from "./NotFound";
+import ToggleableList from "./ToggleableList";
 import data from "./squirtle.json";
 
 export interface PokemonProps {
@@ -28,10 +28,10 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
   const abilityNames = abilities.map(item => item.ability.name);
   const moveNames = moves.map(item => item.move.name);
 
-  const areAbilitiesShowing = true;
+  const areAbilitiesHidden = false;
   const toggleAbilities = () => console.log("toggleAbilities");
 
-  const areMovesShowing = true;
+  const areMovesHidden = false;
   const toggleMoves = () => console.log("toggleMoves");
 
   return (
@@ -47,16 +47,20 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
         </ul>
       </section>
       <section>
-        <button onClick={toggleAbilities}>
-          {areAbilitiesShowing ? "Hide" : "Show"} abilities
-        </button>
-        {areAbilitiesShowing && <List items={abilityNames} />}
+        <ToggleableList
+          description="abilities"
+          hidden={areAbilitiesHidden}
+          items={abilityNames}
+          onChange={toggleAbilities}
+        />
       </section>
       <section>
-        <button onClick={toggleMoves}>
-          {areMovesShowing ? "Hide" : "Show"} moves
-        </button>
-        {areMovesShowing && <List items={moveNames} />}
+        <ToggleableList
+          description="moves"
+          hidden={areMovesHidden}
+          items={moveNames}
+          onChange={toggleMoves}
+        />
       </section>
     </div>
   );
