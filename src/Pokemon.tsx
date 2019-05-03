@@ -46,22 +46,18 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
           <li>Type: {typeNames}</li>
         </ul>
       </section>
-      <section>
-        <ToggleableList
-          description="abilities"
-          hidden={areAbilitiesHidden}
-          items={abilityNames}
-          onChange={toggleAbilities}
-        />
-      </section>
-      <section>
-        <ToggleableList
-          description="moves"
-          hidden={areMovesHidden}
-          items={moveNames}
-          onChange={toggleMoves}
-        />
-      </section>
+      <ToggleableList
+        description="abilities"
+        hidden={areAbilitiesHidden}
+        items={abilityNames}
+        onChange={toggleAbilities}
+      />
+      <ToggleableList
+        description="moves"
+        hidden={areMovesHidden}
+        items={moveNames}
+        onChange={toggleMoves}
+      />
     </div>
   );
 };

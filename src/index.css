@@ -45,6 +45,8 @@ ul {
 }
 
 .ToggleableList {
+  float: left;
+  min-width: 200px;
   margin-left: 1em;
 }
 
