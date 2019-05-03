@@ -14,7 +14,7 @@ export const ToggleableList: FunctionComponent<ListProps> = ({
   onChange
 }) => {
   return (
-    <>
+    <div className="ToggleableList">
       <button onClick={onChange}>
         {hidden ? "Show" : "Hide"} {description}
       </button>
@@ -26,7 +26,7 @@ export const ToggleableList: FunctionComponent<ListProps> = ({
           ))}
         </ul>
       )}
-    </>
+    </div>
   );
 };
 
