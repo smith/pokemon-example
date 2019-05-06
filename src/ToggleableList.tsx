@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from "react";
 
-export interface ListProps {
+export interface ToggleableListProps {
   description: string;
   hidden: boolean;
   items: string[];
   onChange: () => void;
 }
 
-export const ToggleableList: FunctionComponent<ListProps> = ({
+export const ToggleableList: FunctionComponent<ToggleableListProps> = ({
   description,
   hidden,
   items,
