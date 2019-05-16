@@ -1,38 +1,79 @@
-import React, { FunctionComponent } from "react";
+import React, {
+  FunctionComponent,
+  Suspense,
+  lazy,
+  memo,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState
+} from "react";
 
+import Loading from "./Loading";
 import NotFound from "./NotFound";
-import ToggleableList from "./ToggleableList";
-import data from "./squirtle.json";
+import sampleData from "./squirtle.json";
+
+const ToggleableList = lazy(() => import("./ToggleableList"));
 
 export interface PokemonProps {
   name: string;
 }
 
+type ResponseData = typeof sampleData;
+
+function usePokeApi(name: string) {
+  const [data, setData] = useState<ResponseData>();
+
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${name}`);
+      console.log(response);
+      if (response.ok) {
+        setData(await response.json());
+      } else {
+        setData(undefined);
+      }
+    })();
+  }, [name]);
+
+  return data;
+}
+
 export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
-  const {
-    abilities,
-    base_experience,
-    height,
-    moves,
-    sprites,
-    types,
-    weight
-  } = data;
+  const [areAbilitiesHidden, setAreAbilitiesHidden] = useState(true);
+  const toggleAbilities = useCallback(
+    () => setAreAbilitiesHidden(prevState => !prevState),
+    [setAreAbilitiesHidden]
+  );
+
+  const [areMovesHidden, setAreMovesHidden] = useState(true);
+  const toggleMoves = useCallback(
+    () => setAreMovesHidden(prevState => !prevState),
+    [setAreMovesHidden]
+  );
+
+  const data = usePokeApi(name);
+
+  const typeNames = useMemo(
+    () => (data ? data.types.map(item => item.type.name).join(", ") : []),
+    [data]
+  );
+  const abilityNames = useMemo(
+    () => (data ? data.abilities.map(item => item.ability.name) : []),
+    [data]
+  );
+  const moveNames = useMemo(
+    () => (data ? data.moves.map(item => item.move.name) : []),
+    [data]
+  );
 
   if (!data) {
     return <NotFound name={name} />;
   }
 
+  const { base_experience, height, sprites, weight } = data;
+
   const img = sprites.front_default;
-  const typeNames = types.map(item => item.type.name).join(", ");
-  const abilityNames = abilities.map(item => item.ability.name);
-  const moveNames = moves.map(item => item.move.name);
-
-  const areAbilitiesHidden = false;
-  const toggleAbilities = () => console.log("toggleAbilities");
-
-  const areMovesHidden = false;
-  const toggleMoves = () => console.log("toggleMoves");
 
   return (
     <div className="Pokemon">
@@ -46,20 +87,22 @@ export const Pokemon: FunctionComponent<PokemonProps> = ({ name }) => {
           <li>Type: {typeNames}</li>
         </ul>
       </section>
-      <ToggleableList
-        description="abilities"
-        hidden={areAbilitiesHidden}
-        items={abilityNames}
-        onChange={toggleAbilities}
-      />
-      <ToggleableList
-        description="moves"
-        hidden={areMovesHidden}
-        items={moveNames}
-        onChange={toggleMoves}
-      />
+      <Suspense fallback={<Loading />}>
+        <ToggleableList
+          description="abilities"
+          hidden={areAbilitiesHidden}
+          items={abilityNames}
+          onChange={toggleAbilities}
+        />
+        <ToggleableList
+          description="moves"
+          hidden={areMovesHidden}
+          items={moveNames}
+          onChange={toggleMoves}
+        />
+      </Suspense>
     </div>
   );
 };
 
-export default Pokemon;
+export default memo(Pokemon);

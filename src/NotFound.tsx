@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, memo } from "react";
 
 import notFoundGif from "./notFound.gif";
+
 export interface NotFoundProps {
   name: string;
 }
@@ -15,4 +16,4 @@ export const NotFound: FunctionComponent<NotFoundProps> = ({ name }) => {
   );
 };
 
-export default NotFound;
+export default memo(NotFound);

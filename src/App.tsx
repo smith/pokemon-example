@@ -1,12 +1,20 @@
-import React, { ChangeEvent, FunctionComponent } from "react";
+import React, {
+  ChangeEvent,
+  FunctionComponent,
+  Suspense,
+  lazy,
+  useState
+} from "react";
 
-import Pokemon from "./Pokemon";
+import Loading from "./Loading";
+
+const Pokemon = lazy(() => import("./Pokemon"));
 
 export const App: FunctionComponent = () => {
-  const searchQuery = "squirtle";
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
-    console.log(event.target.value);
+    setSearchQuery(event.target.value);
 
   return (
     <main>
@@ -20,7 +28,11 @@ export const App: FunctionComponent = () => {
           placeholder="Search Pokemon by name"
         />
       </header>
-      {searchQuery && <Pokemon name={searchQuery} />}
+      {searchQuery && (
+        <Suspense fallback={<Loading />}>
+          <Pokemon name={searchQuery} />
+        </Suspense>
+      )}
     </main>
   );
 };

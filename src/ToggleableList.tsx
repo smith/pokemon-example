@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, memo } from "react";
 
 export interface ToggleableListProps {
   description: string;
@@ -30,4 +30,4 @@ export const ToggleableList: FunctionComponent<ToggleableListProps> = ({
   );
 };
 
-export default ToggleableList;
+export default memo(ToggleableList);
